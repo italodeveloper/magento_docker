@@ -1,0 +1,190 @@
+version: '2'
+#LOCALHOST SMARTDRAGON
+
+#SMARTDRAGON EM FORMA DE DESENVOLVIMENTO! SEM SSL NO NGINX
+#PARA HABILITAR O AMBIENTE EM PRODUÇÃO, EDITE ESSE ARQUIVO E SUBSTITUA
+#PELO ARQUIVO docker-compose.yml~
+services:
+    nginx:
+        container_name: nginx_balancer
+        build:
+            context: ./docker/nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./log:/var/log/nginx
+            - ./public:/var/www/public
+        links:
+            - php1
+            - php2
+            - php3
+            - php4
+            - php5
+            - php6
+            - php7
+            - php8
+            - php9
+            - php10
+            - php11
+    php1:
+        container_name: php1
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php2:
+        container_name: php2
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php3:
+        container_name: php3
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php4:
+        container_name: php4
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php5:
+        container_name: php5
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php6:
+        container_name: php6
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php7:
+        container_name: php7
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php8:
+        container_name: php8
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php9:
+        container_name: php9
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    php10:
+        container_name: php10
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona    
+    php11:
+        container_name: php11
+        build:
+            context: ./docker/php
+        env_file:
+            - .env
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - .:/var/www
+        depends_on:
+            - percona
+        links:
+            - percona
+    percona:
+        container_name: percona
+        image: percona
+        env_file:
+            - .env
+        restart: always
+    adminer:
+      container_name: percona_admin
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
+    redis:
+        container_name: redis
+        build: ./docker/redis
+    redis_session:
+        container_name: redis_session
+        build: ./docker/redis
