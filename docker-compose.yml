@@ -7,14 +7,33 @@ version: '2'
 services:
     nginx:
         container_name: nginx_balancer
-        build:
-            context: ./docker/nginx
-        ports:
-            - "80:80"
+        build: ./docker/nginx_production
+        image: umputun/nginx-le:latest
+        hostname: nginx
+        restart: always
+        container_name: nginx
+        logging:
+            driver: json-file
+            options:
+                max-size: "10m"
+                max-file: "5"
         volumes:
-            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker_production/nginx/etc/ssl:/etc/nginx/ssl
+            - ./docker_production/nginx/etc/service-example.conf:/etc/nginx/service.conf
             - ./log:/var/log/nginx
             - ./public:/var/www/public
+            # - ./etc/service-example-2.conf:/etc/nginx/service2.conf # more services, should be service*.conf
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            - TZ=America/Chicago
+            - LETSENCRYPT=true
+            - LE_EMAIL=italo@lojainfomix.com.br
+            - LE_FQDN=bhentrega.com.br
+            #- SSL_CERT=le-crt.pem
+            #- SSL_KEY=le-key.pem
+            #- SSL_CHAIN_CERT=le-chain-crt.pem
         links:
             - php1
             - php2
@@ -27,6 +46,28 @@ services:
             - php9
             - php10
             - php11
+    #nginx:
+    #    container_name: nginx_balancer
+    #    build:
+    #        context: ./docker/nginx
+    #    ports:
+    #        - "80:80"
+    #    volumes:
+    #        - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    #        - ./log:/var/log/nginx
+    #        - ./public:/var/www/public
+    #    links:
+    #        - php1
+    #        - php2
+    #        - php3
+    #        - php4
+    #        - php5
+    #        - php6
+    #        - php7
+    #        - php8
+    #        - php9
+    #        - php10
+    #        - php11
     php1:
         container_name: php1
         build:
