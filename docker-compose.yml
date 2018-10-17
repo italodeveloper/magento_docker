@@ -27,12 +27,12 @@ services:
             - "80:80"
             - "443:443"
         environment:
-            - TZ=America/Chicago
-            - LETSENCRYPT=true
-            - LE_EMAIL=italo@lojainfomix.com.br
-            - LE_FQDN=bhentrega.com.br
-            #- SSL_CERT=le-crt.pem
-            #- SSL_KEY=le-key.pem
+            #- TZ=America/Chicago
+            #- LETSENCRYPT=true
+            #- LE_EMAIL=italo@lojainfomix.com.br
+            #- LE_FQDN=bhentrega.com.br
+            - SSL_CERT=le-crt.pem
+            - SSL_KEY=le-key.pem
             #- SSL_CHAIN_CERT=le-chain-crt.pem
         links:
             - php1
