@@ -6,7 +6,7 @@ version: '2'
 #PELO ARQUIVO docker-compose.yml~
 services:
     nginx:
-        container_name: nginx_balancer
+        container_name: smartdragon_nginx
         build: ./docker/nginx_production
         image: umputun/nginx-le:latest
         hostname: nginx
