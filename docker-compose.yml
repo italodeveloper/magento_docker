@@ -6,7 +6,7 @@ version: '2'
 #PELO ARQUIVO docker-compose.yml~
 services:
     nginx:
-        container_name: smartdragon_nginx
+        container_name: nginx_balancer
         build: ./docker/nginx_production
         image: umputun/nginx-le:latest
         hostname: nginx
@@ -18,8 +18,8 @@ services:
                 max-size: "10m"
                 max-file: "5"
         volumes:
-            - ./docker_production/nginx/etc/ssl:/etc/nginx/ssl
-            - ./docker_production/nginx/etc/service-example.conf:/etc/nginx/service.conf
+            - ./docker/nginx_production/etc/ssl:/etc/nginx/ssl
+            - ./docker/nginx_production/etc/service-example.conf:/etc/nginx/service.conf
             - ./log:/var/log/nginx
             - ./public:/var/www/public
             # - ./etc/service-example-2.conf:/etc/nginx/service2.conf # more services, should be service*.conf
